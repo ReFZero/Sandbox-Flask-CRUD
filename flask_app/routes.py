@@ -1,18 +1,27 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from .models import Person
 from . import db
 
 main = Blueprint('main', __name__)
+
+
+@main.route('/')
+def index():
+    persons = Person.query.all()
+    return render_template("index.html", persons=persons)
+
 
 @main.route('/persons', methods=['GET'])
 def get_persons():
     persons = Person.query.all()
     return jsonify([person.to_dict() for person in persons])
 
+
 @main.route('/persons/<int:id>', methods=['GET'])
 def get_person(id):
     person = Person.query.get_or_404(id)
     return jsonify(person.to_dict())
+
 
 @main.route('/persons', methods=['POST'])
 def create_person():
@@ -22,6 +31,7 @@ def create_person():
     db.session.commit()
     return jsonify(new_person.to_dict()), 201
 
+
 @main.route('/persons/<int:id>', methods=['PUT'])
 def update_person(id):
     person = Person.query.get_or_404(id)
@@ -30,6 +40,7 @@ def update_person(id):
     person.surname = data.get('surname', person.surname)
     db.session.commit()
     return jsonify(person.to_dict())
+
 
 @main.route('/persons/<int:id>', methods=['DELETE'])
 def delete_person(id):

@@ -4,7 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 def create_app():
-    app = Flask(__name__)
+
+    """
+    template_folder='nazwa_folderu' - okresla w którym folderze maja znajdowac sie pliki HTML
+    """
+    app = Flask(__name__, template_folder='template')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
     db.init_app(app)

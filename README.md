@@ -6,7 +6,7 @@ Podstawowa aplikacja wykorzystujaca framework Flask
 ### Biblioteki:
 - SQLAlchemy
 #### Zmiany w ostatnim commicie:
-- Rozdzielono kod na moduły
+- Dodano pliki HTML do wyswietlania elementów z bazy danych
 #### Uruchomienie
 Inicjalizacja środowiska
 ```
