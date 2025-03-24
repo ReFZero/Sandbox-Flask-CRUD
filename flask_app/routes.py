@@ -1,12 +1,23 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from .models import Person
 from . import db
 
 main = Blueprint('main', __name__)
 
 
-@main.route('/')
+@main.route('/', methods = ['GET', 'POST'])
 def index():
+    if request.method == "POST" :
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+
+        if name and surname:
+            person = Person(name=name, surname=surname)
+            db.session.add(person)
+            db.session.commit()
+
+            return redirect(url_for("main.index"))  # Powoduje odswiezenie strony
+
     persons = Person.query.all()
     return render_template("index.html", persons=persons)
 

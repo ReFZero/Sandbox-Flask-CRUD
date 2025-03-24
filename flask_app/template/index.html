@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+<h2> Dodaj osobe </h2>
+<form method="POST">
+    <label for = "name" > Imie: </label>
+    <input type ="text" id = "name" name="name" required>
+
+    <label for = "surname"  > Nazwisko: </label>
+    <input type ="text" id = "surname" name = "surname" required>
+
+    <button type ="submit"> Dodaj </button>
+</form>
+
+
 <h2>Lista osob</h2>
 <table border="1">
     <tr>
